@@ -1,10 +1,10 @@
-import { WORLD_SCENE_KEY } from './world-scene';
+import { KEY_WORLD_SCENE } from './world-scene';
 
-export const BOOT_SCENE_KEY = 'BootScene';
+export const KEY_BOOT_SCENE = 'BootScene';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
-    super({ key: BOOT_SCENE_KEY });
+    super({ key: KEY_BOOT_SCENE });
   }
 
   preload(): void {
@@ -19,6 +19,6 @@ export class BootScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.scene.start(WORLD_SCENE_KEY);
+    this.scene.start(KEY_WORLD_SCENE);
   }
 }

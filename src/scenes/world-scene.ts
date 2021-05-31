@@ -1,13 +1,15 @@
-export const WORLD_SCENE_KEY = 'WorldScene';
+export const KEY_WORLD_SCENE = 'WorldScene';
 
 export class WorldScene extends Phaser.Scene {
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private player?: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  private spawns?: Phaser.Physics.Arcade.Group;
 
   constructor() {
-    super({ key: WORLD_SCENE_KEY });
+    super({ key: KEY_WORLD_SCENE });
     this.cursors = undefined;
     this.player = undefined;
+    this.spawns = undefined;
   }
 
   preload(): void {
@@ -61,9 +63,17 @@ export class WorldScene extends Phaser.Scene {
     });
 
     this.physics.add.collider(this.player, obstacles);
+
+    this.spawns = this.physics.add.group({ classType: Phaser.GameObjects.Zone });
+    for (let i = 0; i < 30; i++) {
+      const x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+      const y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+      this.spawns.create(x, y, undefined, 20);
+    }
+    this.physics.add.overlap(this.player, this.spawns, this.onMeetEnemy, undefined, this);
   }
 
-  update(): void {
+  update(_time: number, _delta: number): void {
     this.player?.body.setVelocity(0);
 
     // Horizontal movement
@@ -91,5 +101,19 @@ export class WorldScene extends Phaser.Scene {
     } else {
       this.player?.anims.stop();
     }
+  }
+
+  onMeetEnemy(
+    _player: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    zone: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+  ): void {
+    console.log('onMeetEnemy');
+
+    // we move the zone to some other location
+    zone.body.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
+    zone.body.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
+
+    // start battle
+    this.cameras.main.flash(300);
   }
 }

@@ -3,7 +3,7 @@ const path = require('path');
 
 /** @type {import('webpack').Configuration} */
 const config = {
-  entry: './src/index.ts',
+  entry: './src/game.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',

@@ -2,6 +2,8 @@ import 'phaser';
 
 import { scenes } from './scenes';
 
+const isDebugMode = /debug/.test(location.hash);
+
 const config: Phaser.Types.Core.GameConfig = {
   title: 'ts-phaser',
   version: '0.0.1',
@@ -15,7 +17,7 @@ const config: Phaser.Types.Core.GameConfig = {
     default: 'arcade',
     arcade: {
       gravity: { y: 0 },
-      // debug: true,
+      debug: isDebugMode,
     },
   },
   scene: scenes,
