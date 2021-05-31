@@ -1,4 +1,4 @@
-import { MainScene } from './main-scene';
-import { TitleScene } from './title-scene';
+import { BootScene } from './boot-scene';
+import { WorldScene } from './world-scene';
 
-export const scenes = [TitleScene, MainScene];
+export const scenes: typeof Phaser.Scene[] = [BootScene, WorldScene];
