@@ -68,6 +68,6 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["**/*.ts", ".eslintrc.js"],
+  "include": ["**/*.ts", ".eslintrc.js", "webpack.config.js"],
   "exclude": ["node_modules"]
 }
