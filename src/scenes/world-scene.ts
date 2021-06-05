@@ -1,3 +1,5 @@
+import { KEY_BATTLE_SCENE } from './battle-scene';
+
 export const KEY_WORLD_SCENE = 'WorldScene';
 
 export class WorldScene extends Phaser.Scene {
@@ -7,13 +9,10 @@ export class WorldScene extends Phaser.Scene {
 
   constructor() {
     super({ key: KEY_WORLD_SCENE });
-    this.cursors = undefined;
-    this.player = undefined;
-    this.spawns = undefined;
   }
 
   preload(): void {
-    console.log('preload WorldScene');
+    //
   }
 
   create(): void {
@@ -107,13 +106,22 @@ export class WorldScene extends Phaser.Scene {
     _player: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     zone: Phaser.Types.Physics.Arcade.GameObjectWithBody,
   ): void {
-    console.log('onMeetEnemy');
-
     // we move the zone to some other location
     zone.body.x = Phaser.Math.RND.between(0, this.physics.world.bounds.width);
     zone.body.y = Phaser.Math.RND.between(0, this.physics.world.bounds.height);
 
     // start battle
     this.cameras.main.flash(300);
+    // this.cameras.main.shake(300);
+
+    // switch to BattleScene
+    this.scene.switch(KEY_BATTLE_SCENE);
+  }
+
+  wake(): void {
+    this.cursors?.left.reset();
+    this.cursors?.right.reset();
+    this.cursors?.up.reset();
+    this.cursors?.down.reset();
   }
 }
